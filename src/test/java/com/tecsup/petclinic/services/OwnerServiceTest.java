@@ -47,4 +47,36 @@ public class OwnerServiceTest {
 
 		assertThat(owner.getFirstName(), is(NAME));
 	}
+	
+	@Test
+    public void testFindByFirstName() {
+		
+        String FIND_FIRSTNAME = "George";
+        int SIZE_EXPECTED = 1;
+        
+        List<Owner> owner = ownerService.findByFirstName(FIND_FIRSTNAME);
+
+        assertThat(owner.size(), is(SIZE_EXPECTED));
+    }
+	
+	@Test
+	public void testFindByLastName() {
+		
+		String FINDLAST_NAME = "Franklin";
+		int SIZE_EXPECTED = 1;
+		
+		List<Owner> owner = ownerService.findByLastName(FINDLAST_NAME);
+		
+		assertThat(owner.size(), is(SIZE_EXPECTED));
+	}
+	
+	@Test
+	public void testFindTelephone() {
+		String FINDTELEPHONE = "6085551023";
+		int SIZE_EXPECTED = 1;
+		
+		List<Owner> owner = ownerService.findByTelephone(FINDTELEPHONE);
+		
+		assertThat(owner.size(), is(SIZE_EXPECTED));
+	}
 }
