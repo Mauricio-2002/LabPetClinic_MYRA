@@ -150,5 +150,32 @@ public class OwnerServiceTest {
 		assertThat(upgradeOwner.getTelephone(), is(UP_OWNER_TELEPHONE));
 	}
 	
+	@Test
+	public void testDeleteOwner() {
+		
+		String OWNER_FIRSTNAME = "Kamila";
+		String OWNER_LASTNAME = "San Miguel";
+		String OWNER_ADDRESS = "Calle Cayalti 338";
+		String OWNER_CITY = "Lima";
+		String OWNER_TELEPHONE = "958714235";
+		
+		Owner owner = new Owner(OWNER_FIRSTNAME, OWNER_LASTNAME, OWNER_ADDRESS, OWNER_CITY, OWNER_TELEPHONE);
+		
+		owner = ownerService.create(owner);
+		logger.info("" + owner);
+		
+		try {
+			ownerService.delete(owner.getId());
+		} catch (OwnerNotFoundException e) {
+			assertThat(e.getMessage(), false);
+		} 
+		
+		try {
+			ownerService.findById(owner.getId());
+			assertThat(true, is(false));
+		} catch (OwnerNotFoundException e) {
+			assertThat(true, is(true));
+		} 
+	}
 
 }
