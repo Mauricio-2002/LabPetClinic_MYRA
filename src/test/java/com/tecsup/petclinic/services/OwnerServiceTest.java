@@ -47,4 +47,26 @@ public class OwnerServiceTest {
 
 		assertThat(owner.getFirstName(), is(NAME));
 	}
+	@Test
+	public void testCreateOwner() {
+		String OWNER_FIRSTNAME = "Lucas";
+		String OWNER_LASTNAME = "Flores";
+		String OWNER_ADDRESS = "Calle Paramonga 291";
+		String OWNER_CITY = "Lima";
+		String OWNER_TELEPHONE = "967915476";
+		
+		Owner owner = new Owner(OWNER_FIRSTNAME, OWNER_LASTNAME, OWNER_ADDRESS, OWNER_CITY, OWNER_TELEPHONE);
+		
+		Owner OwnerCreated = ownerService.create(owner);
+		
+		logger.info("OWNER CREATED :" + OwnerCreated);
+		
+		//          ACTUAL                      , EXPECTED 
+		assertThat(OwnerCreated.getId()         , notNullValue());
+		assertThat(OwnerCreated.getFirstName()  , is(OWNER_FIRSTNAME));
+		assertThat(OwnerCreated.getLastName()   , is(OWNER_LASTNAME));
+		assertThat(OwnerCreated.getAddress()    , is(OWNER_ADDRESS));
+		assertThat(OwnerCreated.getCity()       , is(OWNER_CITY));
+		assertThat(OwnerCreated.getTelephone()  , is(OWNER_TELEPHONE));
+	}
 }
