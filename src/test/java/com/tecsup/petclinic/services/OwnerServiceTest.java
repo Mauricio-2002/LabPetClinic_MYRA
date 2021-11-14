@@ -79,4 +79,5 @@ public class OwnerServiceTest {
 		
 		assertThat(owner.size(), is(SIZE_EXPECTED));
 	}
+	
 }
