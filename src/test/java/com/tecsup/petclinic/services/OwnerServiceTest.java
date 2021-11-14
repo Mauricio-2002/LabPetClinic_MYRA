@@ -47,6 +47,7 @@ public class OwnerServiceTest {
 
 		assertThat(owner.getFirstName(), is(NAME));
 	}
+
 	@Test
 	public void testCreateOwner() {
 		String OWNER_FIRSTNAME = "Lucas";
@@ -69,4 +70,85 @@ public class OwnerServiceTest {
 		assertThat(OwnerCreated.getCity()       , is(OWNER_CITY));
 		assertThat(OwnerCreated.getTelephone()  , is(OWNER_TELEPHONE));
 	}
+
+	
+	@Test
+    public void testFindByFirstName() {
+		
+        String FIND_FIRSTNAME = "George";
+        int SIZE_EXPECTED = 1;
+        
+        List<Owner> owner = ownerService.findByFirstName(FIND_FIRSTNAME);
+
+        assertThat(owner.size(), is(SIZE_EXPECTED));
+    }
+	
+	@Test
+	public void testFindByLastName() {
+		
+		String FINDLAST_NAME = "Franklin";
+		int SIZE_EXPECTED = 1;
+		
+		List<Owner> owner = ownerService.findByLastName(FINDLAST_NAME);
+		
+		assertThat(owner.size(), is(SIZE_EXPECTED));
+	}
+	
+	@Test
+	public void testFindTelephone() {
+		String FINDTELEPHONE = "6085551023";
+		int SIZE_EXPECTED = 1;
+		
+		List<Owner> owner = ownerService.findByTelephone(FINDTELEPHONE);
+		
+		assertThat(owner.size(), is(SIZE_EXPECTED));
+	}
+
+	
+	@Test
+	public void testUpdateOwner() {
+		String OWNER_FIRSTNAME = "Mauricio";
+		String OWNER_LASTNAME = "Del Villar";
+		String OWNER_ADDRESS = "Calle Paramonga 291";
+		String OWNER_CITY = "Lima";
+		String OWNER_TELEPHONE = "967915476";
+		long create_id = -1;
+		
+		String UP_OWNER_FIRSTNAME = "Kamila";
+		String UP_OWNER_LASTNAME = "San Miguel";
+		String UP_OWNER_ADDRESS = "Calle Cayalti 338";
+		String UP_OWNER_CITY = "Lima";
+		String UP_OWNER_TELEPHONE = "958714235";
+		
+		Owner owner = new Owner(OWNER_FIRSTNAME, OWNER_LASTNAME, OWNER_ADDRESS, OWNER_CITY, OWNER_TELEPHONE);
+		
+		// Created record
+		logger.info(">" + owner);
+		Owner ownerCreated = ownerService.create(owner);
+		logger.info(">>" + ownerCreated);
+		
+		create_id = ownerCreated.getId();
+		
+		// Create record
+		ownerCreated.setFirstName(UP_OWNER_FIRSTNAME);
+		ownerCreated.setLastName(UP_OWNER_LASTNAME);
+		ownerCreated.setAddress(UP_OWNER_ADDRESS);
+		ownerCreated.setCity(UP_OWNER_CITY);
+		ownerCreated.setTelephone(UP_OWNER_TELEPHONE);
+		
+		// Execute update
+		Owner upgradeOwner = ownerService.update(ownerCreated);
+		logger.info(">>>>>" + upgradeOwner);
+		
+		//      ACTUAL                        , EXPECTED 
+		assertThat(create_id                  ,notNullValue());
+		assertThat(upgradeOwner.getId()       , is(create_id));
+		assertThat(upgradeOwner.getFirstName(), is(UP_OWNER_FIRSTNAME));
+		assertThat(upgradeOwner.getLastName() , is(UP_OWNER_LASTNAME));
+		assertThat(upgradeOwner.getAddress()  , is(UP_OWNER_ADDRESS));
+		assertThat(upgradeOwner.getCity()     , is(UP_OWNER_CITY));
+		assertThat(upgradeOwner.getTelephone(), is(UP_OWNER_TELEPHONE));
+	}
+	
+
 }
